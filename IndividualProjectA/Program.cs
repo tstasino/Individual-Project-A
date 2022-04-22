@@ -9,6 +9,23 @@ namespace IndividualProjectA
 {
     class Program
     {
+        public static List<Student> findDublicates(List<Student> allstudents)
+        {
+            List<Student> result = new List<Student>();
+
+            for (int i = 0; i< allstudents.Count; i++)
+            {
+                for (int z=0; z < i; z++)
+                {
+                    if (allstudents[z].FirstName == allstudents[i].FirstName && allstudents[z].LastName == allstudents[i].LastName)
+                    {
+                        result.Add(new Student()  { FirstName = allstudents[z].FirstName, LastName = allstudents[z].LastName, DateOfBirth=allstudents[z].DateOfBirth, TuitionFees=allstudents[z].TuitionFees});
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
         static void Main(string[] args)
         {
             int choice = 8;
@@ -287,7 +304,9 @@ namespace IndividualProjectA
                             new Student() { FirstName= "Theodore", LastName="Stassinos", DateOfBirth=new DateTime(1977,02,28),TuitionFees=2500 },
                             new Student() { FirstName= "Marios", LastName="Maltzis", DateOfBirth=new DateTime(1987,12,24),TuitionFees=2500},
                             new Student() { FirstName= "Kyriakos", LastName="Papatheodorou", DateOfBirth=new DateTime(1989,03,08),TuitionFees=2500},
-                            new Student() { FirstName= "John", LastName="Giannakos", DateOfBirth=new DateTime(1999,04,17),TuitionFees=2500 }
+                            new Student() { FirstName= "John", LastName="Giannakos", DateOfBirth=new DateTime(1999,04,17),TuitionFees=2500 },
+                            new Student() { FirstName= "Nikos", LastName="Parianos", DateOfBirth=new DateTime(1988,06,14),TuitionFees=2500}
+
                         }
                     },
                     new StudentsPerCourse()
@@ -299,10 +318,14 @@ namespace IndividualProjectA
                         End_Date = new DateTime(2022,09,30),
                         Students = new List<Student>()
                         {
+                            new Student() { FirstName= "Theodore", LastName="Stassinos", DateOfBirth=new DateTime(1977,02,28),TuitionFees=2500 },
                             new Student() { FirstName= "Mihalis", LastName="Hatzigiannis", DateOfBirth=new DateTime(1985,12,20),TuitionFees=2500 },
                             new Student() { FirstName= "Nikos", LastName="Parianos", DateOfBirth=new DateTime(1988,06,14),TuitionFees=2500},
                             new Student() { FirstName= "Andreas", LastName="Sveltos", DateOfBirth=new DateTime(2000,05,18),TuitionFees=2500},
-                            new Student() { FirstName= "Theodore", LastName="Pappas", DateOfBirth=new DateTime(2001,09,04),TuitionFees=2500 }
+                            new Student() { FirstName= "Theodore", LastName="Pappas", DateOfBirth=new DateTime(2001,09,04),TuitionFees=2500 },
+                            new Student() { FirstName= "John", LastName="Giannakos", DateOfBirth=new DateTime(1999,04,17),TuitionFees=2500 },
+                            new Student() { FirstName= "Giorgos", LastName="Papatheodorou", DateOfBirth=new DateTime(1989,03,08),TuitionFees=2500}
+
                         }
                     }
 
@@ -433,6 +456,27 @@ namespace IndividualProjectA
                     Console.WriteLine($"\t Assignment Title: {s.Title} - Description: {s.Description} - Submission Date: {s.SubDateTime} - Oral Mark: {s.OralMark} - Total Mark: {s.TotalMark}");
                 }
             }
+            Console.WriteLine("-------------------Find Dublicates-------------------------");
+            List<Student> allstudents = new List<Student>();
+            foreach (StudentsPerCourse studentsPerCourse in studentsPerCourseList)
+            {
+                foreach (var s in studentsPerCourse.Students)
+                {
+                    allstudents.Add(new Student() { FirstName = s.FirstName, 
+                                                    LastName = s.LastName, 
+                                                    DateOfBirth = s.DateOfBirth, 
+                                                    TuitionFees = s.TuitionFees });
+                    //Console.WriteLine($" {s.FirstName} {s.LastName} {s.DateOfBirth}");
+                }
+            }
+            List<Student> duplicates = findDublicates(allstudents);
+            foreach (var x in duplicates)
+            {
+                Console.WriteLine($" Name: {x.FirstName} {x.LastName} Date of birth: {x.DateOfBirth} Tuition Fees: {x.TuitionFees} takes more than one course");
+            }
+            
+            
+            
         }
     }
 }
