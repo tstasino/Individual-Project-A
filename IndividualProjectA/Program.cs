@@ -26,6 +26,66 @@ namespace IndividualProjectA
             }
             return result;
         }
+        public static void findSubmissionsInRange(List<AssignmentsPerStudent> assignmentPerStudentList)
+        {
+            Console.WriteLine("Give me the Date of submisson");
+            DateTime dt = DateTime.Parse(Console.ReadLine());
+            DateTime startDate = DateTime.Now;
+            DateTime endDate = DateTime.Now;
+            string day = dt.DayOfWeek.ToString();
+            if (day == "Monday")
+            {
+                startDate = dt;
+                endDate = dt.AddDays(4);
+            }
+            else if (day == "Tuesday")
+            {
+                startDate = dt.AddDays(-1);
+                endDate = dt.AddDays(3);
+            }
+            else if (day == "Wednesday")
+            {
+                startDate = dt.AddDays(-2);
+                endDate = dt.AddDays(2);
+            }
+            else if (day == "Thursday")
+            {
+                startDate = dt.AddDays(-3);
+                endDate = dt.AddDays(1);
+            }
+            else if (day == "friday")
+            {
+                startDate = dt.AddDays(-4);
+                endDate = dt;
+            }
+            else if (day == "Saturday")
+            {
+                startDate = dt.AddDays(-5);
+                endDate = dt.AddDays(-1);
+            }
+            else if (day == "Sunday")
+            {
+                startDate = dt.AddDays(-6);
+                endDate = dt.AddDays(-2);
+            }
+            bool found = false;
+            Console.WriteLine($"Student's assignments with submisson date between {startDate} and {endDate}");
+            Console.WriteLine("____________________________________________________________________________");
+            foreach (AssignmentsPerStudent assignmentsPerStudent in assignmentPerStudentList)
+            {
+                foreach (var s in assignmentsPerStudent.Assignments)
+                {
+                    if (s.SubDateTime > startDate && s.SubDateTime < endDate)
+                    {
+                        found = true;
+                        Console.WriteLine($"Student : {assignmentsPerStudent.FirstName} {assignmentsPerStudent.LastName} - Date of Birth: {assignmentsPerStudent.DateOfBirth} - Tuition Fees: {assignmentsPerStudent.TuitionFees} ");
+                        break;
+                    }
+
+                }
+            }
+            if (found == false) Console.WriteLine($"There are no assignments with submisson date between {startDate} and {endDate}");
+        }
         static void Main(string[] args)
         {
             int choice = 8;
@@ -587,9 +647,10 @@ namespace IndividualProjectA
             {
                 Console.WriteLine($" Name: {x.FirstName} {x.LastName} Date of birth: {x.DateOfBirth} Tuition Fees: {x.TuitionFees} takes more than one course");
             }
-            
-            
-            
+
+            Console.WriteLine("-----------------------Find Submissions------------------------------");
+            findSubmissionsInRange(assignmentPerStudentList);
+
         }
     }
 }
