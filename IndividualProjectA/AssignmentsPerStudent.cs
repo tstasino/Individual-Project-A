@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace IndividualProjectA
 {
-    class AssignmentsPerStudent : StudentsPerCourse
+    class AssignmentsPerStudent:Student
     {
+        public Course Course { get; set; }
         public List<Assignment> Assignments;
     }
 }

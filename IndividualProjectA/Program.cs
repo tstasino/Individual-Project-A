@@ -36,6 +36,7 @@ namespace IndividualProjectA
             List<StudentsPerCourse> studentsPerCourseList = new List<StudentsPerCourse>();
             List<TrainersPerCourse> trainersPerCourseList = new List<TrainersPerCourse>();
             List<AssignmentsPerCourse> assignmentsPerCourseList = new List<AssignmentsPerCourse>();
+            List<AssignmentsPerStudent> assignmentPerStudentList = new List<AssignmentsPerStudent>();
             do
             {
                 Console.WriteLine("-------------------Individual Part A--------------------");
@@ -252,6 +253,58 @@ namespace IndividualProjectA
                         epilogh = int.Parse(Console.ReadLine());
                     } while (epilogh != 0);
                 }
+                else if (choice == 7)
+                {
+                    int epilogh = 0;
+
+                    do
+                    {
+                        AssignmentsPerStudent assignmentsPerStudent = new AssignmentsPerStudent();
+                        Console.WriteLine("Give the Student First Name");
+                        assignmentsPerStudent.FirstName = Console.ReadLine();
+                        Console.WriteLine("Give the Student Last Name");
+                        assignmentsPerStudent.LastName = Console.ReadLine();
+                        Console.WriteLine("Give the Date Of Birth");
+                        assignmentsPerStudent.DateOfBirth = DateTime.Parse(Console.ReadLine());
+                        Console.WriteLine("Give the Tuition Fees");
+                        assignmentsPerStudent.TuitionFees = double.Parse(Console.ReadLine());
+
+                        assignmentsPerStudent.Course = new Course();                        
+                        Console.WriteLine("Give the Course Title");
+                        assignmentsPerStudent.Course.Title = Console.ReadLine();                       
+                        Console.WriteLine("Give the Course Stream");
+                        assignmentsPerStudent.Course.Stream = Console.ReadLine();
+                        Console.WriteLine("Give the Course Type");
+                        assignmentsPerStudent.Course.Type = Console.ReadLine();
+                        Console.WriteLine("Give the Start Date");
+                        assignmentsPerStudent.Course.Start_Date = DateTime.Parse(Console.ReadLine());
+                        Console.WriteLine("Give the End Date");
+                        assignmentsPerStudent.Course.End_Date = DateTime.Parse(Console.ReadLine());
+
+                        int ch = 0;
+                        assignmentsPerStudent.Assignments = new List<Assignment>();
+                        do
+                        {
+                            Assignment assignment = new Assignment();
+                            Console.WriteLine("Give the Assignment Title");
+                            assignment.Title = Console.ReadLine();
+                            Console.WriteLine("Give the Assignment Description");
+                            assignment.Description = Console.ReadLine();
+                            Console.WriteLine("Give the Submission Date ");
+                            assignment.SubDateTime = DateTime.Parse(Console.ReadLine());
+                            Console.WriteLine("Give the Oral Mark");
+                            assignment.OralMark = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Give the Total Mark");
+                            assignment.TotalMark = int.Parse(Console.ReadLine());
+                            assignmentsPerStudent.Assignments.Add(assignment);
+                            Console.WriteLine("Add another Assignment? Press 1  for yes or 0 for no");
+                            ch = int.Parse(Console.ReadLine());
+                        } while (ch != 0);
+                        assignmentPerStudentList.Add(assignmentsPerStudent);
+                        Console.WriteLine("Add another Student? Press 1  for yes or 0 for no");
+                        epilogh = int.Parse(Console.ReadLine());
+                    } while (epilogh != 0);
+                }
             } while (choice != 8 && choice != 9 );
             if (choice == 8) //produce syntetic data;
             {
@@ -396,6 +449,54 @@ namespace IndividualProjectA
                         }
                     }
                 };
+                assignmentPerStudentList = new List<AssignmentsPerStudent>()
+                {
+                    new AssignmentsPerStudent()
+                    {
+                        FirstName = "Theodore",
+                        LastName = "Stassinos",
+                        DateOfBirth = new DateTime(1977,02,28),
+                        TuitionFees = 2500,
+                        Course = new Course()
+                        {
+                            Title = "Java Programming",
+                            Stream = "Java",
+                            Type = "Full Time",
+                            Start_Date = new DateTime(2019,01,01),
+                            End_Date = new DateTime(2020,06,30)
+                        },
+                        Assignments = new List<Assignment>()
+                        {
+                            new Assignment() { Title = "Assignment 1", Description= "My first Assgnment", SubDateTime = new DateTime(2020,06,30), OralMark =80, TotalMark=90},
+                            new Assignment() { Title = "Assignment 2", Description= "My Second Assgnment", SubDateTime = new DateTime(2020,06,30), OralMark =70, TotalMark=80},
+                            new Assignment() { Title = "Individual Project A", Description= "My third Assgnment", SubDateTime = new DateTime(2020,06,30), OralMark =90, TotalMark=95}
+                        }
+
+                    },
+                    new AssignmentsPerStudent()
+                    {
+                        FirstName = "George",
+                        LastName = "Thalassinos",
+                        DateOfBirth = new DateTime(1987,02,18),
+                        TuitionFees = 2500,
+                        Course = new Course()
+                        {
+                            Title = "Python Programming",
+                            Stream = "Python",
+                            Type = "Full Time",
+                            Start_Date = new DateTime(2019,01,01),
+                            End_Date = new DateTime(2020,06,30)
+                        },
+                        Assignments = new List<Assignment>()
+                        {
+                            new Assignment() { Title = "Assignment 1", Description= "My first Assgnment", SubDateTime = new DateTime(2020,06,30), OralMark =80, TotalMark=90},
+                            new Assignment() { Title = "Assignment 2", Description= "My Second Assgnment", SubDateTime = new DateTime(2020,06,30), OralMark =70, TotalMark=80},
+                            new Assignment() { Title = "Individual Project A", Description= "My third Assgnment", SubDateTime = new DateTime(2020,06,30), OralMark =90, TotalMark=95}
+                        }
+
+                    }
+
+                };
 
             }
 
@@ -456,6 +557,19 @@ namespace IndividualProjectA
                     Console.WriteLine($"\t Assignment Title: {s.Title} - Description: {s.Description} - Submission Date: {s.SubDateTime} - Oral Mark: {s.OralMark} - Total Mark: {s.TotalMark}");
                 }
             }
+
+            Console.WriteLine("----------------Assignments Per Student-----------------");
+
+            foreach (AssignmentsPerStudent assignmentsPerStudent in assignmentPerStudentList)
+            {
+                Console.WriteLine($"Student : {assignmentsPerStudent.FirstName} {assignmentsPerStudent.LastName} - Date of Birth: {assignmentsPerStudent.DateOfBirth} - Tuition Fees: {assignmentsPerStudent.TuitionFees} ");
+                Console.WriteLine($"\t Course Title: {assignmentsPerStudent.Course.Title} - Stream: {assignmentsPerStudent.Course.Stream} - Type: {assignmentsPerStudent.Course.Type} - Start Date: {assignmentsPerStudent.Course.Start_Date} - End Date: {assignmentsPerStudent.Course.End_Date}");
+                foreach (var s in assignmentsPerStudent.Assignments)
+                {
+                    Console.WriteLine($"\t\t Assignment Title: {s.Title} - Description: {s.Description} - Submission Date: {s.SubDateTime} - Oral Mark: {s.OralMark} - Total Mark: {s.TotalMark}");                  
+                }
+            }
+
             Console.WriteLine("-------------------Find Dublicates-------------------------");
             List<Student> allstudents = new List<Student>();
             foreach (StudentsPerCourse studentsPerCourse in studentsPerCourseList)
@@ -466,7 +580,6 @@ namespace IndividualProjectA
                                                     LastName = s.LastName, 
                                                     DateOfBirth = s.DateOfBirth, 
                                                     TuitionFees = s.TuitionFees });
-                    //Console.WriteLine($" {s.FirstName} {s.LastName} {s.DateOfBirth}");
                 }
             }
             List<Student> duplicates = findDublicates(allstudents);
